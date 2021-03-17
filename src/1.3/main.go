@@ -8,28 +8,18 @@ import (
 )
 
 func main() {
-	slowBenchmark()
-	fastBenchmark()
+	benchmark("Slow", slow)
+	benchmark("Fast", fast)
 }
 
-func slowBenchmark() {
-	fmt.Println("Slow function benchmark:")
+func benchmark(name string, function func()) {
+	fmt.Println(name + " function benchmark:")
 
-	startSlow := time.Now()
-	slow()
-	slowTime := time.Since(startSlow).Microseconds()
+	start := time.Now()
+	function()
+	microseconds := time.Since(start).Microseconds()
 
-	fmt.Println("Slow function execution time:", slowTime, "ms")
-}
-
-func fastBenchmark() {
-	fmt.Println("Fast function benchmark:")
-
-	startSlow := time.Now()
-	fast()
-	fastTime := time.Since(startSlow).Microseconds()
-
-	fmt.Println("Fast function execution time:", fastTime, "ms")
+	fmt.Println(name+" function execution time:", microseconds, "microseconds")
 }
 
 func slow() {
