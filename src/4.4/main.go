@@ -3,20 +3,31 @@ package main
 import "fmt"
 
 func main() {
-	data := []int{1, 2, 3, 4, 5, 6, 7}
-	rotate(data, 3)
+	data1 := []string{"a", "a", "b", "b", "b", "c", "c", "c", "c"}
+	data2 := []string{"a", "b", "c"}
+	data3 := []string{"a"}
+	data4 := []string{}
 
-	fmt.Println(data)
+	fmt.Println(removeNeighborDuplicates(data1))
+	fmt.Println(removeNeighborDuplicates(data2))
+	fmt.Println(removeNeighborDuplicates(data3))
+	fmt.Println(removeNeighborDuplicates(data4))
 }
 
-func reverse(data []int) {
-	for i, j := 0, len(data)-1; i < j; i, j = i+1, j-1 {
-		data[i], data[j] = data[j], data[i]
+func removeNeighborDuplicates(data []string) []string {
+	if len(data) == 0 {
+		return data
 	}
-}
 
-func rotate(data []int, n int) {
-	reverse(data[:n])
-	reverse(data[n:])
-	reverse(data)
+	idx := 1
+
+	for i := 1; i < len(data); i++ {
+		if data[i] != data[i-1] {
+			data[idx] = data[i]
+
+			idx++
+		}
+	}
+
+	return data[:idx]
 }
